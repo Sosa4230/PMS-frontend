@@ -1,0 +1,53 @@
+<h3 class="text-center mb-4" #formHeading>Add New Product</h3>
+
+<form [formGroup]="form" (ngSubmit)="submit()" class="form-group">
+    <div class="row mb-3">
+        <div class="col-md-4 offset-md-2">
+            <label for="name" class="form-label">Name of the Product</label>
+            <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter product name">
+            <div *ngIf="f['name'].touched && f['name'].invalid" class="mt-2">
+                <small *ngIf="f['name'].errors?.['required']" class="text-danger">Product name is required!!</small>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <label for="price" class="form-label">Price of the Product</label>
+            <input type="number" id="price" formControlName="price" class="form-control" placeholder="Enter product price">
+            <div *ngIf="f['price'].touched && f['price'].invalid" class="mt-2">
+                <small *ngIf="f['price'].errors?.['required']" class="text-danger">Product price is required!</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <input type="submit" value="Submit" [disabled]="form.invalid" #formSubmission class="btn btn-primary">
+    </div>
+</form>
+
+<h4 class="mt-5 mb-3">List of Products</h4>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr class="text-center">
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Product Price</th>
+            <th>Edit the product</th>
+            <th>Delete the Product</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let i of products" class="text-center">
+            <td>{{i.id}}</td>
+            <td>{{i.name}}</td>
+            <td>{{i.price}}</td>
+            <td><button (click)="updateProduct(i.id)" class="btn btn-success btn-sm">Edit</button></td>
+            <td><button (click)="deleteProduct(i.id)" class="btn btn-danger btn-sm">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="text-center">
+    <button class="btn btn-info" (click)="createProduct()">Create New Product</button>
+</div>
+
+
